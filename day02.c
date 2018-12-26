@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
 int main(int argc, char const *argv[]) {
   const char* filename = argv[1];
   FILE* file = fopen(filename, "r");
@@ -16,14 +20,12 @@ int main(int argc, char const *argv[]) {
     int b = nums[1];
     int c = nums[2];
     int max = 0;
-    for(int i = 0; i < 3; i++){
-      if (nums[i] > max)
-        max = nums[i];
-    }
-    for(int i = 0; i < 3; i++){
+    qsort(nums, 3, sizeof(int), cmpfunc);
+    for(int i = 0; i < 2; i++){
       if (nums[i] != max)
         ribbon += 2*nums[i];
     }
+    ribbon += a*b*c;
     total += 2*a*b + 2*a*c + 2*b*c;
     nums[0] = a*b;
     nums[1] = a*c;
